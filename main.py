@@ -1,9 +1,23 @@
+##### main.py #####################################################################################
+# Some description of the main.py file
+#
+# Author: Ingo Möller
+# Version: 1.0 (15.10.2024)
+###################################################################################################
+# History:
+# 10.10.2024 Erstellen der Datei und einfügen des Pygame-Beispiels
+#
+#
+###################################################################################################
+
 import pygame
+
+from config import *
 
 pygame.init()
 
 # Set up the drawing window
-screen = pygame.display.set_mode([500, 500])
+screen = pygame.display.set_mode((WINDOW_WIDTH, WINDOW_HEIGHT))
 
 # Run until the user asks to quit
 running = True
