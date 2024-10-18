@@ -1,62 +1,56 @@
-##### main.py #####################################################################################
-# Some description of the main.py file
-#
-# Author: Ingo Möller
-# Version: 1.0 (15.10.2024)
-###################################################################################################
-# History:
-# 10.10.2024 Erstellen der Datei und einfügen des Pygame-Beispiels
-#
-#
-###################################################################################################
-
 import pygame
+import AnimationTestSprite
 
 from config import *
 
-class Ball(pygame.sprite.Sprite):
-    def __init__(self):
-        super().__init__()
-        self.image = pygame.Surface((50, 50))
-        self.image.fill((0, 255, 0))
-        self.rect = self.image.get_rect()
-        self.rect.center = (WINDOW_WIDTH / 2, WINDOW_HEIGHT / 2)
-
-    def update(self):
-        self.rect.x += 1
-        print(self.rect.left)
-        if self.rect.left > WINDOW_WIDTH:
-            self.rect.left = 50
-
-    def draw(self, scr):
-        screen.blit(self.image, self.rect)
-
-
 pygame.init()
 
-# Set up the drawing window
+# Fenster zum Zeichnen einrichten
 screen = pygame.display.set_mode((WINDOW_WIDTH, WINDOW_HEIGHT))
-ball = Ball()
+test_sprite = AnimationTestSprite.AnimationTestSprite()
 
-# Run until the user asks to quit
+# Liste der gedrückten Tasten
+gedrueckte_tasten = []
+
+# Läuft, bis der Benutzer das Programm beendet
 running = True
+clock = pygame.time.Clock()
 
 while running:
+    delta_time = clock.tick(120) / 1000.0  # Delta-Zeit in Sekunden
 
-    # Did the user click the window close button?
+    # Ereignisse verarbeiten
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
+        elif event.type == pygame.KEYDOWN:
+            if event.key not in gedrueckte_tasten:
+                gedrueckte_tasten.append(event.key)
+        elif event.type == pygame.KEYUP:
+            if event.key in gedrueckte_tasten:
+                gedrueckte_tasten.remove(event.key)
 
-    # Fill the background with white
-    screen.fill((255, 255, 255))
+    # Gedrückte Tasten verarbeiten
+    for taste in gedrueckte_tasten:
+        if taste == pygame.K_LEFT:
+            test_sprite.bewege('links', delta_time)
+        elif taste == pygame.K_RIGHT:
+            test_sprite.bewege('rechts', delta_time)
+        elif taste == pygame.K_UP:
+            test_sprite.bewege('oben', delta_time)
+        elif taste == pygame.K_DOWN:
+            test_sprite.bewege('unten', delta_time)
 
-    # Draw a solid blue circle in the center
-    ball.draw(screen)
-    ball.update()
+    # Sprite-Animation aktualisieren
+    test_sprite.update(delta_time)
 
+    # Hintergrund mit einer Farbe füllen
+    screen.fill((50, 50, 50))
 
-    # Flip the display
+    # Sprite zeichnen
+    test_sprite.draw(screen)
+
+    # Anzeige aktualisieren
     pygame.display.flip()
 
 pygame.quit()
