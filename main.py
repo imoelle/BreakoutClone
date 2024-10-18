@@ -18,13 +18,13 @@ clock = pygame.time.Clock()
 
 def movement(tasten):
     for taste in tasten:
-        if taste == pygame.K_LEFT:
+        if taste == pygame.K_LEFT or taste == pygame.K_a:
             test_sprite.bewege('links', delta_time)
-        elif taste == pygame.K_RIGHT:
+        elif taste == pygame.K_RIGHT or taste == pygame.K_d:
             test_sprite.bewege('rechts', delta_time)
-        elif taste == pygame.K_UP:
+        elif taste == pygame.K_UP or taste == pygame.K_w:
             test_sprite.bewege('oben', delta_time)
-        elif taste == pygame.K_DOWN:
+        elif taste == pygame.K_DOWN or taste == pygame.K_s:
             test_sprite.bewege('unten', delta_time)
 
 
