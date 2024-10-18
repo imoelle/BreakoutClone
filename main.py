@@ -16,6 +16,18 @@ gedrueckte_tasten = []
 running = True
 clock = pygame.time.Clock()
 
+def movement(tasten):
+    for taste in tasten:
+        if taste == pygame.K_LEFT:
+            test_sprite.bewege('links', delta_time)
+        elif taste == pygame.K_RIGHT:
+            test_sprite.bewege('rechts', delta_time)
+        elif taste == pygame.K_UP:
+            test_sprite.bewege('oben', delta_time)
+        elif taste == pygame.K_DOWN:
+            test_sprite.bewege('unten', delta_time)
+
+
 while running:
     delta_time = clock.tick(120) / 1000.0  # Delta-Zeit in Sekunden
 
@@ -31,15 +43,7 @@ while running:
                 gedrueckte_tasten.remove(event.key)
 
     # Gedrückte Tasten verarbeiten
-    for taste in gedrueckte_tasten:
-        if taste == pygame.K_LEFT:
-            test_sprite.bewege('links', delta_time)
-        elif taste == pygame.K_RIGHT:
-            test_sprite.bewege('rechts', delta_time)
-        elif taste == pygame.K_UP:
-            test_sprite.bewege('oben', delta_time)
-        elif taste == pygame.K_DOWN:
-            test_sprite.bewege('unten', delta_time)
+    movement(gedrueckte_tasten)
 
     # Sprite-Animation aktualisieren
     test_sprite.update(delta_time)
