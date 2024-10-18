@@ -1,19 +1,11 @@
 import pygame
-
-def konvertiere_sprite_sheet(sprite_sheet):
-    x_num = 5
-    y_num = 3
-    frames = []
-    for y in range(y_num):
-        for x in range(x_num):
-            frames.append(sprite_sheet.subsurface(x * 100, y * 100, 100, 100))
-    return frames
+from utilities import konvertiere_sprite_sheet
 
 class AnimationTestSprite(pygame.sprite.Sprite):
     def __init__(self):
         super().__init__()
         self.sprite_sheet = pygame.image.load('test_spritesheet.png').convert_alpha()
-        self.sprite_animation = konvertiere_sprite_sheet(self.sprite_sheet)
+        self.sprite_animation = konvertiere_sprite_sheet(self.sprite_sheet, 5, 3)
         self.aktuelles_frame = 0
         self.letztes_update = pygame.time.get_ticks()
         self.frame_rate = 150  # Millisekunden pro Frame
